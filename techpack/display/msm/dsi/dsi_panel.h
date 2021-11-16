@@ -246,11 +246,12 @@ struct dsi_panel {
 	
 	int hbm_mode;
 
+        struct brightness_alpha_pair *fod_dim_lut;
+	u32 fod_dim_lut_count;
+
 	bool doze_enabled;
 	enum dsi_doze_mode_type doze_mode;
-
-	struct brightness_alpha_pair *fod_dim_lut;
-	u32 fod_dim_lut_count;
+	bool resend_ea;
 };
 
 static inline bool dsi_panel_ulps_feature_enabled(struct dsi_panel *panel)
