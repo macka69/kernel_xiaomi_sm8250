@@ -50,11 +50,10 @@
 #include <linux/syscalls.h>
 #include <linux/completion.h>
 #include <linux/uuid.h>
-#include <crypto/chacha.h>
-#include <asm/processor.h>
 #include <linux/uaccess.h>
 #include <linux/siphash.h>
 #include <linux/uio.h>
+#include <crypto/chacha.h>
 #include <crypto/chacha20.h>
 #include <crypto/blake2s.h>
 #include <asm/processor.h>
@@ -814,7 +813,6 @@ int __init random_init(const char *command_line)
 	unsigned int i, arch_bits;
 	unsigned long entropy;
 
-
 #if defined(LATENT_ENTROPY_PLUGIN)
 	static const u8 compiletime_seed[BLAKE2S_BLOCK_SIZE] __initconst __latent_entropy;
 	_mix_pool_bytes(compiletime_seed, sizeof(compiletime_seed));
@@ -1113,7 +1111,6 @@ void add_disk_randomness(struct gendisk *disk)
 }
 EXPORT_SYMBOL_GPL(add_disk_randomness);
 
-
 void __cold rand_initialize_disk(struct gendisk *disk)
 {
 	struct timer_rand_state *state;
@@ -1223,7 +1220,6 @@ SYSCALL_DEFINE3(getrandom, char __user *, ubuf, size_t, len, unsigned int, flags
 	 */
 	if ((flags & (GRND_INSECURE | GRND_RANDOM)) == (GRND_INSECURE | GRND_RANDOM))
 		return -EINVAL;
-
 
 	if (!crng_ready() && !(flags & GRND_INSECURE)) {
 		if (flags & GRND_NONBLOCK)
